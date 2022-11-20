@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Alert from "../components/Alert";
 
 const Register = () => {
   const [veterinary, setVeterinary] = useState({
@@ -8,6 +9,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
+  const [alert, setAlert] = useState({});
 
   function handleChange(e) {
     setVeterinary((prevState) => ({
@@ -19,17 +21,20 @@ const Register = () => {
   function handleSubmit(e) {
     e.preventDefault();
     if (Object.values(veterinary).includes("")) {
-      console.log("Hay campos vacios");
+      setAlert({ msg: "Todos los campos son obligatorios", error: true });
       return;
     }
 
     if (veterinary.password !== veterinary.confirmPassword) {
-      console.log("Los password no son iguales");
+      setAlert({ msg: "Las contraseñas no coinciden", error: true });
       return;
     }
 
     if (veterinary.password.length < 6) {
-      console.log("El password es muy corto, agrega minimo 6 caracteres");
+      setAlert({
+        msg: "La contraseña es muy corta, agrega minimo 6 caracteres",
+        error: true,
+      });
       return;
     }
   }
@@ -43,6 +48,8 @@ const Register = () => {
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
+        {alert.msg ? <Alert alert={alert} /> : null}
+
         <form action="" onSubmit={handleSubmit}>
           <div className="my-5">
             <label
