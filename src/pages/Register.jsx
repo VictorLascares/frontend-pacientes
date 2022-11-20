@@ -1,6 +1,21 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const [veterinary, setVeterinary] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  function handleChange(e) {
+    setVeterinary((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  }
+
   return (
     <>
       <div>
@@ -23,6 +38,8 @@ const Register = () => {
               id="name"
               placeholder="Tu nombre"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
+              value={veterinary.name}
+              onChange={handleChange}
             />
           </div>
           <div className="my-5">
@@ -37,6 +54,8 @@ const Register = () => {
               id="email"
               placeholder="Ejemplo@correo.com"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
+              value={veterinary.email}
+              onChange={handleChange}
             />
           </div>
 
@@ -52,6 +71,8 @@ const Register = () => {
               id="password"
               placeholder="Contraseña"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
+              value={veterinary.password}
+              onChange={handleChange}
             />
           </div>
 
@@ -67,6 +88,8 @@ const Register = () => {
               id="confirmPassword"
               placeholder="Confirmar contraseña"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
+              value={veterinary.confirmPassword}
+              onChange={handleChange}
             />
           </div>
 
@@ -80,10 +103,7 @@ const Register = () => {
         </form>
 
         <nav className="mt-10 lg:flex lg:justify-between">
-          <Link
-            to="/"
-            className="block text-center my-5 text-gray-500"
-          >
+          <Link to="/" className="block text-center my-5 text-gray-500">
             ¿Ya tienes una cuenta?{" "}
             <span className="text-indigo-600 hover:underline">
               Iniciar Sesión
