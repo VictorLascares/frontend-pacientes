@@ -73,7 +73,7 @@ const Register = () => {
           <div className="md:flex justify-end">
             <input
               type="submit"
-              value="Iniciar Sesión"
+              value="Crear cuenta"
               className="bg-indigo-700 w-full md:w-auto py-3 px-10 rounded-xl text-white uppercase font-bold mt-5 hover:cursor-pointer hover:bg-indigo-500 transition-all"
             />
           </div>
