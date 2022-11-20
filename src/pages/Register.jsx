@@ -16,6 +16,24 @@ const Register = () => {
     }));
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (Object.values(veterinary).includes("")) {
+      console.log("Hay campos vacios");
+      return;
+    }
+
+    if (veterinary.password !== veterinary.confirmPassword) {
+      console.log("Los password no son iguales");
+      return;
+    }
+
+    if (veterinary.password.length < 6) {
+      console.log("El password es muy corto, agrega minimo 6 caracteres");
+      return;
+    }
+  }
+
   return (
     <>
       <div>
@@ -25,7 +43,7 @@ const Register = () => {
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-        <form action="">
+        <form action="" onSubmit={handleSubmit}>
           <div className="my-5">
             <label
               htmlFor="name"
