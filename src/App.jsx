@@ -4,6 +4,7 @@ import AuthLayout from "./layout/AuthLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
+import NewPassword from "./pages/NewPassword";
 import ConfirmAccount from "./pages/ConfirmAccount";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
             element={<Register alert={alert} setAlert={setAlert} />}
           />
           <Route path="olvide-password" element={<ForgotPassword />} />
+          <Route path="olvide-password/:token" element={<NewPassword />} />
           <Route
             path="confirmar/:id"
             element={<ConfirmAccount alert={alert} setAlert={setAlert} />}
