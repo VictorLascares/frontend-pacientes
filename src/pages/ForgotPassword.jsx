@@ -1,6 +1,35 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import Alert from "../components/Alert";
+import axiosClient from "../config/axios";
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ alert, setAlert }) => {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (email === "") {
+      setAlert({ msg: "El email es obligatorio", error: true });
+      return;
+    }
+
+    try {
+      const { data } = await axiosClient.post("/veterinarios/forgot-password", {
+        email,
+      });
+      setAlert({
+        msg: data.msg,
+        error: false
+      })
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true,
+      });
+    }
+  };
+
   return (
     <>
       <div>
@@ -11,7 +40,8 @@ const ForgotPassword = () => {
       </div>
 
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-        <form action="">
+        {alert.msg && <Alert alert={alert} />}
+        <form onSubmit={handleSubmit}>
           <div className="my-5">
             <label
               htmlFor="email"
@@ -24,6 +54,8 @@ const ForgotPassword = () => {
               id="email"
               placeholder="Ejemplo@correo.com"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="md:flex justify-end">

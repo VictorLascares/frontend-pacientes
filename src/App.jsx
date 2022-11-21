@@ -19,7 +19,10 @@ function App() {
             path="registrar"
             element={<Register alert={alert} setAlert={setAlert} />}
           />
-          <Route path="olvide-password" element={<ForgotPassword />} />
+          <Route
+            path="olvide-password"
+            element={<ForgotPassword alert={alert} setAlert={setAlert} />}
+          />
           <Route path="olvide-password/:token" element={<NewPassword />} />
           <Route
             path="confirmar/:id"
