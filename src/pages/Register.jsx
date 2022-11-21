@@ -4,6 +4,7 @@ import axios from "axios";
 import Alert from "../components/Alert";
 
 const Register = ({ alert, setAlert }) => {
+  console.log(import.meta.env.VITE_BACKEND_URL);
   const [veterinary, setVeterinary] = useState({
     name: "",
     email: "",
@@ -44,7 +45,7 @@ const Register = ({ alert, setAlert }) => {
 
   async function createUser() {
     try {
-      const url = "http://localhost:4000/api/veterinarios";
+      const url = `${import.meta.env.VITE_BACKEND_URL}/api/veterinarios`;
       await axios.post(url, veterinary);
       setAlert({
         msg: "Usuario creado correctamente, revisa tu email",
