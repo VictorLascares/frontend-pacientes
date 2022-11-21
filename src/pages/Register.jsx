@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import Alert from "../components/Alert";
 
 const Register = () => {
@@ -36,6 +37,25 @@ const Register = () => {
         error: true,
       });
       return;
+    }
+
+    // Crear el usuario en la API
+    createUser();
+  }
+
+  async function createUser() {
+    try {
+      const url = "http://localhost:4000/api/veterinarios";
+      await axios.post(url, veterinary);
+      setAlert({
+        msg:"Usuario creado correctamente, revisa tu email",
+        error: false
+      })
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true
+      })
     }
   }
 
