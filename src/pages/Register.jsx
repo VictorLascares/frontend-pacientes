@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Alert from "../components/Alert";
 
-const Register = () => {
+const Register = ({ alert, setAlert }) => {
   const [veterinary, setVeterinary] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [alert, setAlert] = useState({});
 
   function handleChange(e) {
     setVeterinary((prevState) => ({
@@ -48,14 +47,14 @@ const Register = () => {
       const url = "http://localhost:4000/api/veterinarios";
       await axios.post(url, veterinary);
       setAlert({
-        msg:"Usuario creado correctamente, revisa tu email",
-        error: false
-      })
+        msg: "Usuario creado correctamente, revisa tu email",
+        error: false,
+      });
     } catch (error) {
       setAlert({
         msg: error.response.data.msg,
-        error: true
-      })
+        error: true,
+      });
     }
   }
 
