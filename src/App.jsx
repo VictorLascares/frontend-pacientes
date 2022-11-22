@@ -23,7 +23,10 @@ function App() {
             path="olvide-password"
             element={<ForgotPassword alert={alert} setAlert={setAlert} />}
           />
-          <Route path="olvide-password/:token" element={<NewPassword />} />
+          <Route
+            path="olvide-password/:token"
+            element={<NewPassword alert={alert} setAlert={setAlert} />}
+          />
           <Route
             path="confirmar/:id"
             element={<ConfirmAccount alert={alert} setAlert={setAlert} />}
