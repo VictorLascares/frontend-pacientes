@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Alert from "../components/Alert";
 import axiosClient from "../config/axios";
 
@@ -7,6 +7,7 @@ const NewPassword = ({ alert, setAlert }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validToken, setValidToken] = useState(false);
+  const [changedPassword, setChangedPassword] = useState(false);
 
   const params = useParams();
   const { token } = params;
@@ -31,6 +32,47 @@ const NewPassword = ({ alert, setAlert }) => {
     }
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      setAlert({ msg: "Las contraseñas no coinciden", error: true });
+      return;
+    }
+
+    if (password.length < 6) {
+      setAlert({
+        msg: "La contraseña es muy corta, agrega minimo 6 caracteres",
+        error: true,
+      });
+      return;
+    }
+
+    // Actualizar contraseña
+    updatePassword();
+  }
+
+  async function updatePassword() {
+    try {
+      const { data } = await axiosClient.post(
+        `/veterinarios/forgot-password/${token}`,
+        {
+          password,
+        }
+      );
+      setAlert({
+        msg: data.msg,
+        error: false,
+      });
+      setChangedPassword(true);
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true,
+      });
+    }
+  }
+
   return (
     <>
       <div>
@@ -44,49 +86,59 @@ const NewPassword = ({ alert, setAlert }) => {
         {alert.msg ? <Alert alert={alert} /> : null}
 
         {validToken && (
-          <form>
-            <div className="my-5">
-              <label
-                htmlFor="password"
-                className="uppercase text-gray-600 block text-xl font-bold"
-              >
-                Nueva Contraseña
-              </label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Contraseña"
-                className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+          <>
+            <form onSubmit={handleSubmit}>
+              <div className="my-5">
+                <label
+                  htmlFor="password"
+                  className="uppercase text-gray-600 block text-xl font-bold"
+                >
+                  Nueva Contraseña
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Contraseña"
+                  className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
 
-            <div className="my-5">
-              <label
-                htmlFor="confirmPassword"
-                className="uppercase text-gray-600 block text-xl font-bold"
-              >
-                Confirmar contraseña
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                placeholder="Confirmar contraseña"
-                className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
+              <div className="my-5">
+                <label
+                  htmlFor="confirmPassword"
+                  className="uppercase text-gray-600 block text-xl font-bold"
+                >
+                  Confirmar contraseña
+                </label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  placeholder="Confirmar contraseña"
+                  className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+              </div>
 
-            <div className="md:flex justify-end">
-              <input
-                type="submit"
-                value="Guardar"
-                className="bg-indigo-700 w-full md:w-auto py-3 px-10 rounded-xl text-white uppercase font-bold mt-5 hover:cursor-pointer hover:bg-indigo-500 transition-all"
-              />
-            </div>
-          </form>
+              <div className="md:flex justify-end">
+                <input
+                  type="submit"
+                  value="Guardar"
+                  className="bg-indigo-700 w-full md:w-auto py-3 px-10 rounded-xl text-white uppercase font-bold mt-5 hover:cursor-pointer hover:bg-indigo-500 transition-all"
+                />
+              </div>
+            </form>
+            {changedPassword && (
+              <Link to="/" className="block text-center my-5 text-gray-500">
+                ¿Ya tienes una cuenta?{" "}
+                <span className="text-indigo-600 hover:underline">
+                  Iniciar Sesión
+                </span>
+              </Link>
+            )}
+          </>
         )}
       </div>
     </>
