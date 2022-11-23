@@ -7,32 +7,36 @@ import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
 import ConfirmAccount from "./pages/ConfirmAccount";
 
+import { AuthProvider } from "./context/AuthProvider";
+
 function App() {
   const [alert, setAlert] = useState({});
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AuthLayout />}>
-          <Route index element={<Login />} />
-          <Route
-            path="registrar"
-            element={<Register alert={alert} setAlert={setAlert} />}
-          />
-          <Route
-            path="olvide-password"
-            element={<ForgotPassword alert={alert} setAlert={setAlert} />}
-          />
-          <Route
-            path="olvide-password/:token"
-            element={<NewPassword alert={alert} setAlert={setAlert} />}
-          />
-          <Route
-            path="confirmar/:id"
-            element={<ConfirmAccount alert={alert} setAlert={setAlert} />}
-          />
-        </Route>
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<AuthLayout />}>
+            <Route index element={<Login />} />
+            <Route
+              path="registrar"
+              element={<Register alert={alert} setAlert={setAlert} />}
+            />
+            <Route
+              path="olvide-password"
+              element={<ForgotPassword alert={alert} setAlert={setAlert} />}
+            />
+            <Route
+              path="olvide-password/:token"
+              element={<NewPassword alert={alert} setAlert={setAlert} />}
+            />
+            <Route
+              path="confirmar/:id"
+              element={<ConfirmAccount alert={alert} setAlert={setAlert} />}
+            />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
