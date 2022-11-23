@@ -17,7 +17,10 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<AuthLayout />}>
-            <Route index element={<Login />} />
+            <Route
+              index
+              element={<Login alert={alert} setAlert={setAlert} />}
+            />
             <Route
               path="registrar"
               element={<Register alert={alert} setAlert={setAlert} />}

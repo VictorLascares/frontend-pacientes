@@ -1,9 +1,45 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import Alert from "../components/Alert";
+import axiosClient from "../config/axios";
 
-const Login = () => {
-  const { auth } = useAuth();
-  console.log(auth);
+const Login = ({ alert, setAlert }) => {
+  const [authInfo, setAuthInfo] = useState({
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+
+  function handleChange(e) {
+    setAuthInfo((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (Object.values(authInfo).includes("")) {
+      setAlert({
+        msg: "Todos los campos son obligatorios",
+        error: true,
+      });
+      return;
+    }
+
+    try {
+      const { data } = await axiosClient.post("/veterinarios/login", authInfo);
+      localStorage.setItem("token", data.token);
+      navigate("/admin");
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true,
+      });
+    }
+  }
 
   return (
     <>
@@ -14,7 +50,8 @@ const Login = () => {
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-        <form action="">
+        {alert.msg ? <Alert alert={alert} /> : null}
+        <form onSubmit={handleSubmit}>
           <div className="my-5">
             <label
               htmlFor="email"
@@ -27,6 +64,8 @@ const Login = () => {
               id="email"
               placeholder="Ejemplo@correo.com"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
+              value={authInfo.email}
+              onChange={handleChange}
             />
           </div>
 
@@ -42,6 +81,8 @@ const Login = () => {
               id="password"
               placeholder="Contraseña"
               className="border w-full p-3 mt-3 bg-gray-50 rounded-xl focus:outline-none"
+              value={authInfo.password}
+              onChange={handleChange}
             />
           </div>
 
