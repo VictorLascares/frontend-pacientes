@@ -36,8 +36,12 @@ const AuthProvider = ({ children }) => {
     setLoading(false);
   }
 
+  const signOff = () => {
+    localStorage.removeItem("token");
+    setAuth({});
+  }
   return (
-    <AuthContext.Provider value={{ auth, setAuth, loading }}>
+    <AuthContext.Provider value={{ auth, setAuth, loading, signOff }}>
       {children}
     </AuthContext.Provider>
   );
