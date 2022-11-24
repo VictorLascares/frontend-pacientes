@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AuthLayout from "./layout/AuthLayout";
+import ProtectedRoute from "./layout/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
 import ConfirmAccount from "./pages/ConfirmAccount";
+import ManagePatients from "./pages/ManagePatients";
 
 import { AuthProvider } from "./context/AuthProvider";
 
@@ -37,6 +39,10 @@ function App() {
               path="confirmar/:id"
               element={<ConfirmAccount alert={alert} setAlert={setAlert} />}
             />
+          </Route>
+
+          <Route path="/admin" element={<ProtectedRoute />}>
+            <Route index element={<ManagePatients />} />
           </Route>
         </Routes>
       </AuthProvider>
