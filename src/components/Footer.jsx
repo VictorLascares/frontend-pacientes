@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer className="py-10">
+    <footer className="py-10 px-2">
       <p className="text-center font-bold">
         APV - Administrador de Pacientes de
         {" "}

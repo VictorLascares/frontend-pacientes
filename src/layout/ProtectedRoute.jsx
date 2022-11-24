@@ -10,7 +10,13 @@ const ProtectedRoute = () => {
   return (
     <>
       <Header />
-      {Object.keys(auth).length > 0 ? <Outlet /> : <Navigate to="/" />}
+      {Object.keys(auth).length > 0 ? (
+        <main className="container mx-auto mt-10 p-5">
+          <Outlet />
+        </main>
+      ) : (
+        <Navigate to="/" />
+      )}
       <Footer />
     </>
   );
