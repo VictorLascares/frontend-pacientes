@@ -10,6 +10,8 @@ const Login = ({ alert, setAlert }) => {
     password: "",
   });
 
+  const { setAuth } =  useAuth();
+
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -32,6 +34,7 @@ const Login = ({ alert, setAlert }) => {
     try {
       const { data } = await axiosClient.post("/veterinarios/login", authInfo);
       localStorage.setItem("token", data.token);
+      setAuth(data);
       navigate("/admin");
     } catch (error) {
       setAlert({

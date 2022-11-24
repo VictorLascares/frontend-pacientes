@@ -15,13 +15,13 @@ const Header = () => {
 
         <nav className="flex flex-col md:flex-row items-center gap-4 mt-5 md:mt-0">
           <Link
-            to="#"
+            to="/admin"
             className="text-white hover:underline text-sm uppercase font-bold"
           >
             Pacientes
           </Link>
           <Link
-            to="#"
+            to="/perfil"
             className="text-white hover:underline text-sm uppercase font-bold"
           >
             Perfil
