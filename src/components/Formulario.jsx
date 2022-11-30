@@ -1,3 +1,4 @@
+
 const Formulario = () => {
   return (
     <>
@@ -18,7 +19,7 @@ const Formulario = () => {
             type="text"
             id="mascota"
             placeholder="Nombre de la Mascota"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 focus:outline-none"
+            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
           />
         </div>
 
@@ -33,7 +34,7 @@ const Formulario = () => {
             type="text"
             id="propietario"
             placeholder="Nombre del dueño de la mascota"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 focus:outline-none"
+            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
           />
         </div>
 
@@ -45,7 +46,7 @@ const Formulario = () => {
             type="email"
             id="email"
             placeholder="ejemplo@correo.com"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 focus:outline-none"
+            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
           />
         </div>
 
@@ -56,7 +57,7 @@ const Formulario = () => {
           <input
             type="date"
             id="fecha"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 focus:outline-none"
+            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
           />
         </div>
 
@@ -70,14 +71,14 @@ const Formulario = () => {
           <textarea
             id="sintomas"
             rows="5"
-            className="border-2 w-full p-2 mt-2 placeholder-gray-400 focus:outline-none resize-none"
+            className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none resize-none"
           ></textarea>
         </div>
 
         <input
           type="submit"
           value="Agregar Paciente"
-          className="bg-indigo-700 hover:bg-indigo-500 w-full p-3 text-white transition-all cursor-pointer"
+          className="bg-indigo-700 hover:bg-indigo-500 w-full p-3 text-white rounded-md transition-all cursor-pointer"
         />
       </form>
     </>
