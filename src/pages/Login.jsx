@@ -4,11 +4,12 @@ import useAuth from "../hooks/useAuth";
 import Alert from "../components/Alert";
 import axiosClient from "../config/axios";
 
-const Login = ({ alert, setAlert }) => {
+const Login = () => {
   const [authInfo, setAuthInfo] = useState({
     email: "",
     password: "",
   });
+  const [alert, setAlert] = useState({});
 
   const { setAuth } =  useAuth();
 

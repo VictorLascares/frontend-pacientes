@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import axiosClient from "../config/axios";
 import Alert from "../components/Alert";
 
-const Register = ({ alert, setAlert }) => {
+const Register = () => {
   const [veterinary, setVeterinary] = useState({
     name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+ const [alert, setAlert] = useState({});
+
 
   function handleChange(e) {
     setVeterinary((prevState) => ({

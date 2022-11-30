@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AuthLayout from "./layout/AuthLayout";
 import ProtectedRoute from "./layout/ProtectedRoute";
@@ -12,7 +11,6 @@ import ManagePatients from "./pages/ManagePatients";
 import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
-  const [alert, setAlert] = useState({});
 
   return (
     <BrowserRouter>
@@ -21,23 +19,23 @@ function App() {
           <Route path="/" element={<AuthLayout />}>
             <Route
               index
-              element={<Login alert={alert} setAlert={setAlert} />}
+              element={<Login/>}
             />
             <Route
               path="registrar"
-              element={<Register alert={alert} setAlert={setAlert} />}
+              element={<Register />}
             />
             <Route
               path="olvide-password"
-              element={<ForgotPassword alert={alert} setAlert={setAlert} />}
+              element={<ForgotPassword />}
             />
             <Route
               path="olvide-password/:token"
-              element={<NewPassword alert={alert} setAlert={setAlert} />}
+              element={<NewPassword />}
             />
             <Route
               path="confirmar/:id"
-              element={<ConfirmAccount alert={alert} setAlert={setAlert} />}
+              element={<ConfirmAccount />}
             />
           </Route>
 

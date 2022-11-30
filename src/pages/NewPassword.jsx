@@ -3,11 +3,12 @@ import { useParams, Link } from "react-router-dom";
 import Alert from "../components/Alert";
 import axiosClient from "../config/axios";
 
-const NewPassword = ({ alert, setAlert }) => {
+const NewPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validToken, setValidToken] = useState(false);
   const [changedPassword, setChangedPassword] = useState(false);
+  const [alert, setAlert] = useState({});
 
   const params = useParams();
   const { token } = params;

@@ -1,5 +1,22 @@
+import { useState } from "react";
 
 const Formulario = () => {
+  const [patient, setPatient] = useState({
+    name: "",
+    propietario: "",
+    email: "",
+    fecha: "",
+    sintomas: "",
+  });
+  const [alert, setAlert] = useState();
+
+  function handleChange(e) {
+    setPatient((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  }
+
   return (
     <>
       <p className="text-lg text-center mb-10">
@@ -9,17 +26,16 @@ const Formulario = () => {
 
       <form className="bg-white py-10 px-5 shadow-md rounded-md">
         <div className="mb-5">
-          <label
-            htmlFor="mascota"
-            className="text-gray-700 uppercase font-bold"
-          >
+          <label htmlFor="name" className="text-gray-700 uppercase font-bold">
             Nombre Mascota
           </label>
           <input
             type="text"
-            id="mascota"
+            id="name"
             placeholder="Nombre de la Mascota"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
+            value={patient.name}
+            onChange={handleChange}
           />
         </div>
 
@@ -35,6 +51,8 @@ const Formulario = () => {
             id="propietario"
             placeholder="Nombre del dueño de la mascota"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
+            value={patient.propietario}
+            onChange={handleChange}
           />
         </div>
 
@@ -47,6 +65,8 @@ const Formulario = () => {
             id="email"
             placeholder="ejemplo@correo.com"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
+            value={patient.email}
+            onChange={handleChange}
           />
         </div>
 
@@ -58,6 +78,8 @@ const Formulario = () => {
             type="date"
             id="fecha"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none"
+            value={patient.fecha}
+            onChange={handleChange}
           />
         </div>
 
@@ -72,6 +94,8 @@ const Formulario = () => {
             id="sintomas"
             rows="5"
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md focus:outline-none resize-none"
+            value={patient.sintomas}
+            onChange={handleChange}
           ></textarea>
         </div>
 

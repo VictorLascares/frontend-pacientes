@@ -3,9 +3,11 @@ import { useParams, Link } from "react-router-dom";
 import axiosClient from "../config/axios";
 import Alert from "../components/Alert";
 
-const ConfirmAccount = ({ alert, setAlert }) => {
+const ConfirmAccount = () => {
   const [confirmedAccount, setConfirmedAccount] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [alert, setAlert] = useState({});
+
   const params = useParams();
   const { id } = params;
 

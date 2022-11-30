@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import Alert from "../components/Alert";
 import axiosClient from "../config/axios";
 
-const ForgotPassword = ({ alert, setAlert }) => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const [alert, setAlert] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
