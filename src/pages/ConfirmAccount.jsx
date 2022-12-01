@@ -42,7 +42,7 @@ const ConfirmAccount = () => {
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-        {!loading && <Alert alert={alert} />}
+        {!loading && <Alert alert={alert} setAlert={setAlert} />}
 
         {confirmedAccount && (
           <Link to="/" className="block text-center my-5 text-gray-500">

@@ -68,7 +68,7 @@ const Register = () => {
         </h1>
       </div>
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-        {alert.msg ? <Alert alert={alert} /> : null}
+        {alert.msg ? <Alert alert={alert} setAlert={setAlert} /> : null}
 
         <form action="" onSubmit={handleSubmit}>
           <div className="my-5">

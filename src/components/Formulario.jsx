@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Alert from "./Alert";
 
 const Formulario = () => {
   const [patient, setPatient] = useState({
@@ -8,7 +9,7 @@ const Formulario = () => {
     fecha: "",
     sintomas: "",
   });
-  const [alert, setAlert] = useState();
+  const [alert, setAlert] = useState({});
 
   function handleChange(e) {
     setPatient((prevState) => ({
@@ -17,14 +18,40 @@ const Formulario = () => {
     }));
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    // Validar formulario
+    if (Object.values(patient).includes("")) {
+      setAlert({
+        msg: "Todos los campos son obligatorios",
+        error: true,
+      });
+      return;
+    }
+
+    const er = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (!patient.email.match(er)) {
+      setAlert({
+        msg: "Correo Electronico no válido",
+        error: true,
+      });
+      return;
+    }
+  }
+
   return (
     <>
       <p className="text-lg text-center mb-10">
         Añade tus pacientes y{" "}
         <span className="text-indigo-600 font-bold">Administralos</span>
       </p>
-
-      <form className="bg-white py-10 px-5 shadow-md rounded-md">
+      <form
+        className="bg-white py-10 px-5 shadow-md rounded-md mb-5"
+        onSubmit={handleSubmit}
+        noValidate
+      >
         <div className="mb-5">
           <label htmlFor="name" className="text-gray-700 uppercase font-bold">
             Nombre Mascota
@@ -105,6 +132,8 @@ const Formulario = () => {
           className="bg-indigo-700 hover:bg-indigo-500 w-full p-3 text-white rounded-md transition-all cursor-pointer"
         />
       </form>
+
+      {alert.msg ? <Alert alert={alert} setAlert={setAlert} /> : null}
     </>
   );
 };
