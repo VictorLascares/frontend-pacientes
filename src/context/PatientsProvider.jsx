@@ -32,12 +32,6 @@ export const PatientsProvider = ({ children }) => {
   }, []);
 
   const savePatient = async (patient) => {
-    if (patient._id) {
-      console.log("Editando...");
-    } else {
-      console.log("Nuevo Paciente...");
-    }
-
     const token = localStorage.getItem("token");
 
     const config = {
@@ -47,12 +41,22 @@ export const PatientsProvider = ({ children }) => {
       },
     };
 
-    try {
-      const { data } = await axiosClient.post("/pacientes", patient, config);
-      const { createdAt, updatedAt, __v, ...savedPatient } = data;
-      setPatients([savedPatient, ...patients]);
-    } catch (error) {
-      console.log(error.response.data.msg);
+    if (patient._id) {
+      try {
+        const { data } = await axiosClient.put(`/pacientes/${patient._id}`, patient, config);
+        const updatedPatients = patients.map( statePatients => statePatients._id === data._id ? data : statePatients);
+        setPatients(updatedPatients);
+      } catch (error) {
+        console.log(error.response.data.msg);
+      }
+    } else {
+      try {
+        const { data } = await axiosClient.post("/pacientes", patient, config);
+        const { createdAt, updatedAt, __v, ...savedPatient } = data;
+        setPatients([savedPatient, ...patients]);
+      } catch (error) {
+        console.log(error.response.data.msg);
+      }
     }
   };
 

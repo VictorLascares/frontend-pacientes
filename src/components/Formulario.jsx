@@ -51,6 +51,17 @@ const Formulario = () => {
     }
 
     savePatient(patient);
+    setAlert({
+      msg: patient._id ? "Actualizado Correctamente" : "Guardado Correctamente",
+      error: false,
+    });
+    setPatient({
+      name: "",
+      propietario: "",
+      email: "",
+      fecha: "",
+      sintomas: "",
+    });
   }
 
   return (
