@@ -5,10 +5,12 @@ import axiosClient from "../config/axios";
 const PatientsContext = createContext();
 
 export const PatientsProvider = ({children}) => {
+  const [patients, setPatients] = useState([]);
+
   return (
     <PatientsContext.Provider
       value={{
-        
+        patients
       }} 
     >
       {children}
@@ -16,4 +18,4 @@ export const PatientsProvider = ({children}) => {
   );
 };
 
-export default PatientsProvider;
+export default PatientsContext;

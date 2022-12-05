@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Alert from "./Alert";
+import usePatients from "../hooks/usePatients";
 
 const Formulario = () => {
   const [patient, setPatient] = useState({
@@ -11,6 +12,10 @@ const Formulario = () => {
   });
   const [alert, setAlert] = useState({});
 
+  const { patients } = usePatients();
+ 
+  console.log(patients);
+  
   function handleChange(e) {
     setPatient((prevState) => ({
       ...prevState,

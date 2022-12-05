@@ -8,38 +8,37 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({});
 
   useEffect(() => {
+    const authenticateUser = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      try {
+        const { data } = await axiosClient("/veterinarios/perfil", config);
+        setAuth(data);
+      } catch (error) {
+        console.log(error.response.data.msg);
+        setAuth({});
+      }
+      setLoading(false);
+    };
     authenticateUser();
   }, []);
-
-  async function authenticateUser() {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      setLoading(false);
-      return;
-    }
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    try {
-      const { data } = await axiosClient("/veterinarios/perfil", config);
-      setAuth(data);
-    } catch (error) {
-      console.log(error.response.data.msg);
-      setAuth({});
-    }
-    setLoading(false);
-  }
 
   const signOff = () => {
     localStorage.removeItem("token");
     setAuth({});
-  }
+  };
   return (
     <AuthContext.Provider value={{ auth, setAuth, loading, signOff }}>
       {children}
