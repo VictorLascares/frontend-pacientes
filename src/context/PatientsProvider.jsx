@@ -43,8 +43,14 @@ export const PatientsProvider = ({ children }) => {
 
     if (patient._id) {
       try {
-        const { data } = await axiosClient.put(`/pacientes/${patient._id}`, patient, config);
-        const updatedPatients = patients.map( statePatients => statePatients._id === data._id ? data : statePatients);
+        const { data } = await axiosClient.put(
+          `/pacientes/${patient._id}`,
+          patient,
+          config
+        );
+        const updatedPatients = patients.map((statePatients) =>
+          statePatients._id === data._id ? data : statePatients
+        );
         setPatients(updatedPatients);
       } catch (error) {
         console.log(error.response.data.msg);
@@ -64,6 +70,31 @@ export const PatientsProvider = ({ children }) => {
     setEditPatient(patient);
   };
 
+  const deletePatient = async (id) => {
+    const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const remove = confirm("¿Desea eliminar el registro?");
+
+    if (remove) {
+      try {
+        await axiosClient.delete(`/pacientes/${id}`, config);
+        const updatedPatients = patients.filter(
+          (statePatients) => statePatients._id !== id
+        );
+        setPatients(updatedPatients);
+      } catch (error) {
+        console.log(error.response.data.msg);
+      }
+    }
+  };
+
   return (
     <PatientsContext.Provider
       value={{
@@ -71,6 +102,7 @@ export const PatientsProvider = ({ children }) => {
         savePatient,
         setEdition,
         editPatient,
+        deletePatient,
       }}
     >
       {children}
