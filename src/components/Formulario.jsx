@@ -13,7 +13,7 @@ const Formulario = () => {
   const [alert, setAlert] = useState({});
 
   const { savePatient } = usePatients();
- 
+
   function handleChange(e) {
     setPatient((prevState) => ({
       ...prevState,
@@ -33,7 +33,8 @@ const Formulario = () => {
       return;
     }
 
-    const er = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const er =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     if (!patient.email.match(er)) {
       setAlert({
@@ -48,7 +49,8 @@ const Formulario = () => {
 
   return (
     <>
-      <p className="text-lg text-center mb-10">
+      <h2 className="font-black text-3xl text-center">Agrega tus Pacientes</h2>
+      <p className="text-xl text-center mt-5 mb-10">
         Añade tus pacientes y{" "}
         <span className="text-indigo-600 font-bold">Administralos</span>
       </p>

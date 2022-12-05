@@ -1,4 +1,5 @@
 import usePatients from "../hooks/usePatients";
+import Patient from "./Patient";
 
 const PatientsList = () => {
   const { patients } = usePatients();
@@ -13,6 +14,15 @@ const PatientsList = () => {
               Pacientes y Citas
             </span>
           </p>
+
+          {
+            patients.map( patient => (
+              <Patient 
+                key={patient._id}
+                patient={patient} 
+              />
+            ))
+          }
         </>
       ) : (
         <>

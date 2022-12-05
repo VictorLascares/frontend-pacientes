@@ -6,7 +6,7 @@ const ManagePatients = () => {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row gap-10">
       <button
         type="button"
         className="bg-indigo-600 text-white font-bold uppercase mx-10 p-3 mb-10 rounded-md md:hidden"
