@@ -7,6 +7,8 @@ import ForgotPassword from "./pages/ForgotPassword";
 import NewPassword from "./pages/NewPassword";
 import ConfirmAccount from "./pages/ConfirmAccount";
 import ManagePatients from "./pages/ManagePatients";
+import EditProfile from "./pages/EditProfile";
+import ChangePassword from "./pages/ChangePassword";
 
 import { AuthProvider } from "./context/AuthProvider";
 import { PatientsProvider } from "./context/PatientsProvider";
@@ -27,6 +29,8 @@ function App() {
 
             <Route path="/admin" element={<ProtectedRoute />}>
               <Route index element={<ManagePatients />} />
+              <Route path="perfil" element={<EditProfile />} />
+              <Route path="cambiar-password" element={<ChangePassword />} />
             </Route>
           </Routes>
         </PatientsProvider>
