@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "./Alert";
 import usePatients from "../hooks/usePatients";
 
@@ -12,7 +12,13 @@ const Formulario = () => {
   });
   const [alert, setAlert] = useState({});
 
-  const { savePatient } = usePatients();
+  const { savePatient, editPatient } = usePatients();
+
+  useEffect(() => {
+    if (editPatient?.name) {
+      setPatient(editPatient);
+    }
+  }, [editPatient]);
 
   function handleChange(e) {
     setPatient((prevState) => ({
@@ -135,7 +141,7 @@ const Formulario = () => {
 
         <input
           type="submit"
-          value="Agregar Paciente"
+          value={`${patient._id ? "Actualizar Paciente" : "Agregar Paciente"}`}
           className="bg-indigo-700 hover:bg-indigo-500 w-full p-3 text-white rounded-md transition-all cursor-pointer"
         />
       </form>

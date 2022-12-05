@@ -5,7 +5,7 @@ const PatientsContext = createContext();
 
 export const PatientsProvider = ({ children }) => {
   const [patients, setPatients] = useState([]);
-  const [patient, setPatient] = useState({});
+  const [editPatient, setEditPatient] = useState({});
 
   useEffect(() => {
     const getPatients = async () => {
@@ -32,6 +32,12 @@ export const PatientsProvider = ({ children }) => {
   }, []);
 
   const savePatient = async (patient) => {
+    if (patient._id) {
+      console.log("Editando...");
+    } else {
+      console.log("Nuevo Paciente...");
+    }
+
     const token = localStorage.getItem("token");
 
     const config = {
@@ -51,7 +57,7 @@ export const PatientsProvider = ({ children }) => {
   };
 
   const setEdition = (patient) => {
-    setPatient(patient);
+    setEditPatient(patient);
   };
 
   return (
@@ -60,6 +66,7 @@ export const PatientsProvider = ({ children }) => {
         patients,
         savePatient,
         setEdition,
+        editPatient,
       }}
     >
       {children}
