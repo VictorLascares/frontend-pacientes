@@ -12,10 +12,8 @@ const Formulario = () => {
   });
   const [alert, setAlert] = useState({});
 
-  const { patients } = usePatients();
+  const { savePatient } = usePatients();
  
-  console.log(patients);
-  
   function handleChange(e) {
     setPatient((prevState) => ({
       ...prevState,
@@ -44,6 +42,8 @@ const Formulario = () => {
       });
       return;
     }
+
+    savePatient(patient);
   }
 
   return (
