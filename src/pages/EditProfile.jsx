@@ -1,6 +1,22 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const EditProfile = () => {
+  const { auth } = useAuth();
+  const [profile, setProfile] = useState({});
+
+  useEffect(() => {
+    setProfile(auth);
+  }, [auth]);
+
+  const handleChange = (e) => {
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      [e.target.id]: e.target.value 
+    }))
+  }; 
+
   return (
     <>
       <nav>
@@ -32,6 +48,8 @@ const EditProfile = () => {
                   type="text"
                   className="border bg-gray-50 w-full p-2 mt-2 rounded-lg focus:outline-none"
                   id="name"
+                  value={profile.name || ""}
+                  onChange={handleChange}
                 />
               </div>
               <div className="lg:w-1/2 my-3 lg:my-0">
@@ -45,6 +63,8 @@ const EditProfile = () => {
                   type="text"
                   className="border bg-gray-50 w-full p-2 mt-2 rounded-lg focus:outline-none"
                   id="phone"
+                  value={profile.phone || ""}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -59,6 +79,8 @@ const EditProfile = () => {
                 type="text"
                 className="border bg-gray-50 w-full p-2 mt-2 rounded-lg focus:outline-none"
                 id="web"
+                value={profile.web || ""}
+                onChange={handleChange}
               />
             </div>
 
@@ -73,6 +95,8 @@ const EditProfile = () => {
                 type="email"
                 className="border bg-gray-50 w-full p-2 mt-2 rounded-lg focus:outline-none"
                 id="email"
+                value={profile.email || ""}
+                onChange={handleChange}
               />
             </div>
 
