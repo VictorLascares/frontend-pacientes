@@ -73,7 +73,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const changePassword = async (data) => {
+  const changePassword = async (password) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -90,9 +90,16 @@ const AuthProvider = ({ children }) => {
 
     try {
       const url = "/veterinarios/update-password";
-      axiosClient.put(url, data, config);
+      const { data } = await axiosClient.put(url, password, config);
+      return {
+        msg: data.msg,
+        error: false,
+      };
     } catch (error) {
-      console.log(error.response.data.msg);
+      return {
+        msg: error.response.data.msg,
+        error: true,
+      };
     }
   };
 

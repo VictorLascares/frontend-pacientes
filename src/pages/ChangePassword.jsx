@@ -19,7 +19,7 @@ const ChangePassword = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (Object.values(password).includes("")) {
@@ -46,10 +46,12 @@ const ChangePassword = () => {
       return;
     }
 
-    changePassword({
+    const result = await changePassword({
       currentPassword: password.currentPassword,
       password: password.password,
     });
+
+    setAlert(result);
   };
 
   return (
