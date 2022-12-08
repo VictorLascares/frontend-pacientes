@@ -72,9 +72,13 @@ const AuthProvider = ({ children }) => {
       };
     }
   };
+
+  const changePassword = async (password) => {
+    
+  }
   return (
     <AuthContext.Provider
-      value={{ auth, setAuth, loading, signOff, updateProfile }}
+      value={{ auth, setAuth, loading, signOff, updateProfile, changePassword }}
     >
       {children}
     </AuthContext.Provider>
