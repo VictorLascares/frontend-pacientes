@@ -10,8 +10,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
- const [alert, setAlert] = useState({});
-
+  const [alert, setAlert] = useState({});
 
   function handleChange(e) {
     setVeterinary((prevState) => ({
@@ -24,6 +23,17 @@ const Register = () => {
     e.preventDefault();
     if (Object.values(veterinary).includes("")) {
       setAlert({ msg: "Todos los campos son obligatorios", error: true });
+      return;
+    }
+
+    const er =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (!veterinary.email.match(er)) {
+      setAlert({
+        msg: "Correo Electronico no válido",
+        error: true,
+      });
       return;
     }
 
@@ -70,7 +80,7 @@ const Register = () => {
       <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
         {alert.msg ? <Alert alert={alert} setAlert={setAlert} /> : null}
 
-        <form action="" onSubmit={handleSubmit}>
+        <form action="" onSubmit={handleSubmit} noValidate>
           <div className="my-5">
             <label
               htmlFor="name"

@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import Alert from "../components/Alert";
 
 const EditProfile = () => {
-  const { auth } = useAuth();
+  const { auth, updateProfile } = useAuth();
   const [profile, setProfile] = useState({});
+  const [alert, setAlert] = useState({});
 
   useEffect(() => {
     setProfile(auth);
@@ -13,9 +15,36 @@ const EditProfile = () => {
   const handleChange = (e) => {
     setProfile((prevProfile) => ({
       ...prevProfile,
-      [e.target.id]: e.target.value 
-    }))
-  }; 
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { name, email } = profile;
+
+    if ([name, email].includes("")) {
+      setAlert({
+        msg: "El nombre y el correo son campos obligatorios",
+        error: true,
+      });
+      return;
+    }
+
+    const er =
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if (!email.match(er)) {
+      setAlert({
+        msg: "Correo Electronico no válido",
+        error: true,
+      });
+      return;
+    }
+
+    const result = await updateProfile(profile);
+    setAlert(result);
+  };
 
   return (
     <>
@@ -35,7 +64,7 @@ const EditProfile = () => {
 
       <div className="flex justify-center">
         <div className="w-full md:w-1/2 bg-white shadow rounded-lg p-5">
-          <form>
+          <form onSubmit={handleSubmit} className="mb-5" noValidate>
             <div className="my-3 lg:flex lg:justify-between lg:gap-3">
               <div className="lg:w-1/2">
                 <label
@@ -106,6 +135,7 @@ const EditProfile = () => {
               className="bg-indigo-700 hover:bg-indigo-500 px-10 py-3 font-bold w-full uppercase mt-5 text-white rounded-lg transition-all cursor-pointer"
             />
           </form>
+          {alert.msg ? <Alert alert={alert} setAlert={setAlert} /> : null}
         </div>
       </div>
     </>
