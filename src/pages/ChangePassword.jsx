@@ -46,7 +46,10 @@ const ChangePassword = () => {
       return;
     }
 
-    changePassword(password.password);
+    changePassword({
+      currentPassword: password.currentPassword,
+      password: password.password,
+    });
   };
 
   return (

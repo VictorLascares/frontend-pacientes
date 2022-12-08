@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
     };
 
     try {
-      const { data } = await axiosClient.put(
+      await axiosClient.put(
         `/veterinarios/perfil/${veterinary._id}`,
         veterinary,
         config
@@ -73,9 +73,29 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const changePassword = async (password) => {
-    
-  }
+  const changePassword = async (data) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setLoading(false);
+      return;
+    }
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const url = "/veterinarios/update-password";
+      axiosClient.put(url, data, config);
+    } catch (error) {
+      console.log(error.response.data.msg);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{ auth, setAuth, loading, signOff, updateProfile, changePassword }}
